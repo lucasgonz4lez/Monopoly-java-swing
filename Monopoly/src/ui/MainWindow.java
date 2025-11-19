@@ -1,5 +1,7 @@
 package ui;
 
+import ui.custom.CasillaPanel;
+
 import java.awt.*;
 import java.awt.Color;
 import java.util.Objects;
@@ -87,6 +89,13 @@ public class MainWindow extends JFrame {
         btnAyuda.setToolTipText("Abrir ayuda");
         toolBar.add(btnAyuda);
 
+        btnNuevo.addActionListener(e -> openNewGameDialog());
+        btnDado.addActionListener(e -> rollDice());
+        btnGuardar.addActionListener(e -> saveGame());
+        btnCargar.addActionListener(e -> loadGame());
+        btnAyuda.addActionListener(e -> showHelp());
+
+
         return toolBar;
     }
 
@@ -105,10 +114,19 @@ public class MainWindow extends JFrame {
 
     private JPanel createBoardPanel() {
         JPanel board = new JPanel();
-        board.setBackground(Color.GREEN);
+        board.setBackground(new Color(0, 120, 0));
         board.setBorder(BorderFactory.createTitledBorder("Tablero"));
+
+        board.setLayout(new GridLayout(5, 4, 5, 5));
+
+        for (int i = 1; i <= 20; i++) {
+            CasillaPanel casilla = new CasillaPanel("Casilla " + i, Color.BLUE);
+            board.add(casilla);
+        }
+
         return board;
     }
+
 
     private JPanel createSidePanel() {
         JPanel side = new JPanel();
@@ -142,4 +160,26 @@ public class MainWindow extends JFrame {
 
         return bottom;
     }
+
+    private void openNewGameDialog() {
+        JOptionPane.showMessageDialog(this, "Abrir diálogo de nuevo juego");
+    }
+
+    private void rollDice() {
+        int dado = (int)(Math.random() * 6) + 1;
+        JOptionPane.showMessageDialog(this, "Has sacado un " + dado);
+    }
+
+    private void saveGame() {
+        JOptionPane.showMessageDialog(this, "Guardar partida (pendiente)");
+    }
+
+    private void loadGame() {
+        JOptionPane.showMessageDialog(this, "Cargar partida (pendiente)");
+    }
+
+    private void showHelp() {
+        JOptionPane.showMessageDialog(this, "Abrir ayuda (JavaHelp pendiente)");
+    }
+
 }
